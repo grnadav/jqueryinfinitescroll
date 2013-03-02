@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="jquery.infinite-scroll.js"></script>
+
+    <script>
+
+        $(
+                function() {
+                    $('#flux').infinitescroll({
+                        showLoading: true,
+                        loadingEl: $('<div style="font-weight: bold; text-align: center; font-size: 3em; line-height: 10px;">- - -</div>'),
+                        threshold: 200,
+                        callback: function() {
+                            window.i = window.i || 1;
+                            this.append(window.i++ +'</br>');
+
+                            // returning a promise is optional
+                            // if provided then the loading elem will be removed when promise is resolved
+                            // if not provided then the loading elem will be removed immediately after this callback returns
+                            var dfd = $.Deferred();
+                            setTimeout(function() {
+                                dfd.resolve();
+                            }, 2000);
+                            return dfd.promise();
+                        }
+                    });
+                }
+
+        );
+
+    </script>
+
+    <style>
+
+        #flux{position:relative; width:200px;height:150px;overflow:auto;}
+
+    </style>
+</head>
+<body>
+    <div id="flux">
+        Lorem ipsum dolor sit amet <br>
+        Consectetuer augue nibh lacus at <br>
+        Pretium Donec felis dolor penatibus <br>
+        Phasellus consequat Vivamus dui lacinia <br>
+        Ornare nonummy laoreet lacus Donec <br>
+        Ut ut libero Curabitur id <br>
+        Dui pretium hendrerit sapien Pellentesque <br>
+    </div>
+</body>
+</html>
